@@ -1,0 +1,21 @@
+{
+  "name": "public",
+  "homepage": "https://github.com/MurilloTavares/ProjetoBD2-Maps",
+  "authors": [
+    "MurilloTavares <murillo_eum@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "bootstrap": "^4.1.2"
+  }
+}

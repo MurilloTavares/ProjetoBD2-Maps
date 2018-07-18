@@ -1,0 +1,13 @@
+extends layout
+
+block content
+
+    .login-form
+        form(action='/users/login', method='post')
+            h2.text-center Log in
+            .form-group
+                input.form-control(type='text', name='email', placeholder='Email')
+            .form-group
+                  input.form-control(type='password', name='senha', placeholder='Senha')
+            .form-group
+                 button.btn.btn-primary.btn-block(type='submit') Log in

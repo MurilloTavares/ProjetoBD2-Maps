@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+    .login-form
+        form(action='/users/cadastrar', method='post')
+            h2.text-center Cadastrar
+            .form-group
+                input.form-control(type='text', name='email', placeholder='Email')
+            .form-group
+                input.form-control(type='text', name='nome', placeholder='Nome')
+            .form-group
+                input.form-control(type='text', name='curso', placeholder='Curso')
+            .form-group
+                input.form-control(type='text', name='instituicao', placeholder='Instituição')
+            .form-group
+                  input.form-control(type='password', name='senha' placeholder='Senha')
+            .form-group
+                  input.form-control(type='password', name='senha2' placeholder='Confirmar Senha')
+            .form-group
+                 button.btn.btn-primary.btn-block(type='submit') Cadastrar

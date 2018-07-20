@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/mapsdb',  { useNewUrlParser: true });
 var db = mongoose.connection;
 
+const bcrypt = require('bcryptjs');
+
 // Testar conexao
 /*
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -21,6 +23,10 @@ var userSchema = mongoose.Schema({
 var User = module.exports = mongoose.model('User', userSchema);
 
 module.exports.createUser = function(newUser, callback){
-    newUser.save(callback);
+    bcrypt.hash(newUser.senha, 10, function(err, hash){
+        if(err) throw err;
+        newUser.senha = hash;
+        newUser.save(callback);
+    });
 };
 

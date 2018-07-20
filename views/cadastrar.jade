@@ -4,18 +4,37 @@ block content
 
     .login-form
         form(action='/users/cadastrar', method='post')
-            h2.text-center Cadastrar
+            //h2.text-center Cadastrar
+
             .form-group
-                input.form-control(type='text', name='email', placeholder='Email')
+                input.form-control(type='text', name='email', placeholder='Email' class= erroEmail ? "is-invalid" : "" value= email)
+                if erroEmail
+                    .invalid-feedback
+                        p #{erroEmail.msg}
             .form-group
-                input.form-control(type='text', name='nome', placeholder='Nome')
+                input.form-control(type='text', name='nome', placeholder='Nome' class= erroNome ? "is-invalid" : "" value = nome)
+                if erroNome
+                    .invalid-feedback
+                        p #{erroNome.msg}
             .form-group
-                input.form-control(type='text', name='curso', placeholder='Curso')
+                input.form-control(type='text', name='curso', placeholder='Curso' class= erroCurso ? "is-invalid" : "" value = curso)
+                if erroCurso
+                    .invalid-feedback
+                        p #{erroCurso.msg}
             .form-group
-                input.form-control(type='text', name='instituicao', placeholder='Instituição')
+                input.form-control(type='text', name='inst', placeholder='Instituição' class= erroInst ? "is-invalid" : "" value = inst)
+                if erroInst
+                    .invalid-feedback
+                        p #{erroInst.msg}
             .form-group
-                  input.form-control(type='password', name='senha' placeholder='Senha')
+                input.form-control(type='password', name='senha' placeholder='Senha' class= erroSenha ? "is-invalid" : "")
+                if erroSenha
+                    .invalid-feedback
+                        p #{erroSenha.msg}
             .form-group
-                  input.form-control(type='password', name='senha2' placeholder='Confirmar Senha')
+                input.form-control(type='password', name='senha2' placeholder='Confirmar Senha' class= erroSenha2 ? "is-invalid" : "")
+                if erroSenha2
+                    .invalid-feedback
+                        p #{erroSenha2.msg}
             .form-group
                  button.btn.btn-primary.btn-block(type='submit') Cadastrar

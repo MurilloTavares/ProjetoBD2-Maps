@@ -15,7 +15,7 @@ var userSchema = mongoose.Schema({
     nome:  { type: String },
     senha: { type: String },
     curso: { type: String },
-    instituicao:{ type: String }
+    inst:  { type: String }
 });
 
 var User = module.exports = mongoose.model('User', userSchema);

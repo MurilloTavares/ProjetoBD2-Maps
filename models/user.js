@@ -30,3 +30,13 @@ module.exports.createUser = function(newUser, callback){
     });
 };
 
+module.exports.getUserByEmail = function(email, callback){
+    User.findOne({email: email}, callback);
+};
+
+module.exports.compararSenha = function(senhaCandidata, hash, callback){
+    bcrypt.compare(senhaCandidata, hash, function(err, isMatch){
+        if(err) return callback(err);
+        callback(null, isMatch);
+    });
+};

@@ -8,6 +8,33 @@ router.get('/login', function(req, res){
   res.render('login', { title : 'Log in'});
 });
 
+router.post('/login', function(req, res){
+  var email = req.body.email;
+  var senha = req.body.senha;
+
+  User.getUserByEmail(email, function(err, user){
+    if(err) throw err;
+    if(!user){
+      res.render('login', {
+        erroEmail: 'Email não cadastrado.',
+        email: email
+      });
+    } else {
+      User.compararSenha(senha, user.senha, function(err, isMatch){
+        if(err) throw err;
+        if(isMatch){
+          console.log('Logado');
+        } else {
+          res.render('login', {
+            erroSenha: 'Senha inválida.',
+            email: email
+          });
+        };
+      });
+    }
+  });
+});
+
 router.get('/cadastrar', function(req, res){
   res.render('cadastrar', { title : 'Cadastrar'});
 });

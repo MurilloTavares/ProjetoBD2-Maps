@@ -4,7 +4,8 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-expressValidator = require('express-validator')
+var session = require('express-session');
+expressValidator = require('express-validator');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +22,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Express-Sessions middleware
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave:true
+}));
 
 // Express-validator middleware
 app.use(expressValidator({

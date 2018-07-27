@@ -2,6 +2,8 @@ doctype html
 html
   head
     title Maps
+    meta(name='viewport', content='initial-scale=1.0')
+    meta(charset='utf-8')
     link(rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css")
     link(rel="stylesheet" href="/stylesheets/style.css")
   body
@@ -13,15 +15,17 @@ html
           #navbarCollapse.collapse.navbar-collapse
             ul.navbar-nav.mr-auto
               if !user
-                li.nav-item
+                li.nav-item(class = title == 'Log in' ? "active" : "")
                   a.nav-link(href='/users/login') Login
-                li.nav-item
+                li.nav-item(class = title == 'Cadastrar' ? "active" : "")
                   a.nav-link(href='/users/cadastrar') Cadastrar
 
               if user
-                li.nav-item
+                li.nav-item(class = title == 'Home' ? "active" : "")
+                  a.nav-link(href='#') Home
+                li.nav-item(class = title == 'Criar Eventos' ? "active" : "")
                   a.nav-link(href='#') Criar Eventos
-                li.nav-item
+                li.nav-item(class = title == 'Buscar Eventos' ? "active" : "")
                   a.nav-link(href='#') Buscar Eventos
 
             if user
@@ -30,9 +34,11 @@ html
                   a.nav-link(href='#') Logout
 
     // Conteudo
-    .container            
+    .container-fluid      
       block content
 
     // Scripts
     script(src="/bower_components/jquery/dist/jquery.js")
     script(src="/bower_components/bootstrap/dist/js/bootstrap.js")
+    script(src="/javascripts/script.js")
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCM81YKuvRlAPbYKcn_DreKTmlx8_dnaUA&callback=initMap', async='', defer='')

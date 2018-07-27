@@ -23,7 +23,9 @@ router.post('/login', function(req, res){
       User.compararSenha(senha, user.senha, function(err, isMatch){
         if(err) throw err;
         if(isMatch){
-          console.log('Logado');
+          req.session.user = user;
+          req.session.authenticated = true;
+          res.redirect('/');
         } else {
           res.render('login', {
             erroSenha: 'Senha inválida.',

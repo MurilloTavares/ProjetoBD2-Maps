@@ -11,4 +11,13 @@ router.get('/', function(req, res, next) {
   res.redirect('/users/login');  
 });
 
+router.get('/criar', function(req, res, next){
+  if(req.session.authenticated){
+    res.render('criarEvento', {
+      title: 'Criar Evento',
+      user: req.session.user});
+  }
+  res.redirect('/users/login');
+})
+
 module.exports = router;

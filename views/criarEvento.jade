@@ -1,0 +1,50 @@
+include ./includes/header.jade
+
+.container-fluid.h-100.row
+    .style-form.col-sm-4
+        form(action='/criar', method='post')
+            .form-group
+                label Titulo
+                input.form-control(type='text', name='titulo', placeholder='Titulo', class = erroTitulo ? "is-invalid" : "", value = titulo)
+                if erroTitulo
+                    .invalid-feedback
+                        p #{erroTitulo}
+                        
+            .form-group
+                label Data
+                input.form-control(type='date', name='data', class = erroData ? "is-invalid" : "")
+                if erroData
+                    .invalid-feedback
+                        p #{erroData}
+
+            .form-group
+                label Tema
+                select.custom-select(name="tema")
+                    option(value = 'diversos', selected) Diversos
+                    option(value='automação') Automação
+                    option(value='civil') Construção civil
+                    option(value='humanidades') Humanidades
+                    option(value='informatica') Informática
+                    option(value='linguagens') Linguagens
+
+            .form-group
+                label Buscar endereço
+                .input-group
+                    input.form-control#endereco(type='text', name='endereco')
+                    .input-group-append
+                        button.btn.btn-dark(type='button', onclick='buscarEndereco()') Buscar
+                if erroEndereco
+                    .invalid-feedback
+                        p #{erroEndereco}
+                    
+                // Hidden input para envitar lat e lng junto ao formulario
+                input#lat(type='hidden', name='lat', value='')
+                input#lng(type='hidden', name='lng', value='')
+
+            .form-group
+                button.btn.btn-primary.btn-block(type='submit') Salvar
+                
+    #map.col-sm-8
+
+script(src="/javascripts/criarEventoScript.js")
+script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCM81YKuvRlAPbYKcn_DreKTmlx8_dnaUA&callback=initMap&libraries=places', async='', defer='')

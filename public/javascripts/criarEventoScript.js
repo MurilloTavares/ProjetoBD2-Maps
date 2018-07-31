@@ -64,6 +64,5 @@ function buscarEndereco() {
 function setNewMarker(location) {
     map.setCenter(location);
     newMarker.setPosition(location);
-    document.getElementById('lat').value = location.lat();
-    document.getElementById('lng').value = location.lng();
+    document.getElementById('latLng').value = location;
 }

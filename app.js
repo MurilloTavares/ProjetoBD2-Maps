@@ -45,8 +45,26 @@ app.use(expressValidator({
         msg   : msg,
         value : value
       };
-    }
+    }    
 }));
+
+app.use(expressValidator({
+    customValidators: {
+        bgThanNow: function(data){
+            Date.prototype.yyyymmdd = function() {
+                var mm = this.getMonth() + 1; // getMonth() is zero-based
+                var dd = this.getDate();
+              
+                return [this.getFullYear(),
+                        (mm>9 ? '' : '0') + mm,
+                        (dd>9 ? '' : '0') + dd
+                       ].join('-');
+            };
+            var now = new Date();
+            return data >= now.yyyymmdd();
+        }
+    }
+}))
 
 // Routes
 app.use('/', routes);

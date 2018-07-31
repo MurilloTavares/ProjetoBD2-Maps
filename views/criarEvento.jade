@@ -8,14 +8,14 @@ include ./includes/header.jade
                 input.form-control(type='text', name='titulo', placeholder='Titulo', class = erroTitulo ? "is-invalid" : "", value = titulo)
                 if erroTitulo
                     .invalid-feedback
-                        p #{erroTitulo}
+                        p #{erroTitulo.msg}
                         
             .form-group
                 label Data
                 input.form-control(type='date', name='data', class = erroData ? "is-invalid" : "")
                 if erroData
                     .invalid-feedback
-                        p #{erroData}
+                        p #{erroData.msg}
 
             .form-group
                 label Tema
@@ -30,16 +30,15 @@ include ./includes/header.jade
             .form-group
                 label Buscar endereço
                 .input-group
-                    input.form-control#endereco(type='text', name='endereco')
+                    input.form-control#endereco(type='text', name='endereco', class = erroEndereco? "is-invalid" : "")
                     .input-group-append
                         button.btn.btn-dark(type='button', onclick='buscarEndereco()') Buscar
-                if erroEndereco
-                    .invalid-feedback
-                        p #{erroEndereco}
-                    
+                    if erroEndereco
+                        .invalid-feedback
+                            p #{erroEndereco.msg}
+
                 // Hidden input para envitar lat e lng junto ao formulario
-                input#lat(type='hidden', name='lat', value='')
-                input#lng(type='hidden', name='lng', value='')
+                input#latLng(type='hidden', name='latLng', value='')
 
             .form-group
                 button.btn.btn-primary.btn-block(type='submit') Salvar

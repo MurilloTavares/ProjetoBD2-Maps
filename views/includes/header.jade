@@ -1,0 +1,38 @@
+doctype html
+html
+    head
+        title Maps
+        meta(name='viewport', content='initial-scale=1.0')
+        meta(charset='utf-8')
+        link(rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css")
+        link(rel="stylesheet" href="/stylesheets/style.css")
+    body
+        // Navbar
+        header
+            nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+                button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarCollapse.collapse.navbar-collapse
+                    ul.navbar-nav.mr-auto
+                        if !user
+                            li.nav-item(class = title == 'Log in' ? "active" : "")
+                                a.nav-link(href='/users/login') Login
+                            li.nav-item(class = title == 'Cadastrar' ? "active" : "")
+                                a.nav-link(href='/users/cadastrar') Cadastrar
+
+                        if user
+                            li.nav-item(class = title == 'Home' ? "active" : "")
+                                a.nav-link(href='/') Home
+                            li.nav-item(class = title == 'Criar Eventos' ? "active" : "")
+                                a.nav-link(href='/criar') Criar Eventos
+                            li.nav-item(class = title == 'Buscar Eventos' ? "active" : "")
+                                a.nav-link(href='#') Buscar Eventos
+
+                    if user
+                    ul.nav.navbar-nav.navbar-righ                      
+                        li.nav-item
+                        a.nav-link(href='#') Logout
+        
+        // Scripts
+        script(src="/bower_components/jquery/dist/jquery.js")
+        script(src="/bower_components/bootstrap/dist/js/bootstrap.js")

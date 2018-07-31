@@ -1,5 +1,6 @@
-extends layout
+include ./includes/header.jade
 
-block content
-  .container-fluid 
-    #map
+#map.container-fluid.h-100
+
+script(src="/javascripts/script.js")
+script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCM81YKuvRlAPbYKcn_DreKTmlx8_dnaUA&callback=initMap&libraries=places', async='', defer='')

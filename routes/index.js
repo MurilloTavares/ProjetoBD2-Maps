@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var Evento = require('../models/evento');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if(req.session.authenticated){
@@ -22,7 +24,7 @@ router.get('/criar', function(req, res, next){
 
 router.post('/criar', function(req, res, next){
   var titulo = req.body.titulo;
-  var data = new Date(req.body.data);
+  var data = req.body.data;
   var tema = req.body.tema;
   var endereco = req.body.latLng;
 
@@ -45,9 +47,23 @@ router.post('/criar', function(req, res, next){
       erroEndereco: erros.find(x => x.param === 'latLng')
     });
   } else {
-    console.log('valido');
+    // Instancia novo Evento
+    var novoEvento = new Evento({
+      titulo: titulo,
+      data: data,
+      tema: tema,
+      endereco: endereco
+    });
+
+    // Salva no banco
+    Evento.saveEvento(novoEvento, function(err, evento){
+      if(err) throw err;
+      console.log('novo evento: ' + evento);
+    });
+
+    res.location('/');
+    res.redirect('/');
   }
-  
 });
 
 module.exports = router;

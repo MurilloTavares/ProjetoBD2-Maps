@@ -4,25 +4,43 @@ var router = express.Router();
 var Evento = require('../models/evento');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  if(req.session.authenticated){
-    res.render('index', {
-      title: 'Home',
-      user: req.session.user});
-  }
-  res.redirect('/users/login');  
+router.get('/', function (req, res, next) {
+
+  Evento.find({}).exec((err, result) => {
+
+    if (err) {
+      console.log(err);
+      res.redirect('/users/login');
+    } else {
+
+      if (req.session.authenticated) {
+
+        res.render('index', {
+          title: 'Home',
+          user: req.session.user,
+          eventos: result
+        });
+        
+      } else {
+        res.redirect('/users/login');
+      }
+    }
+
+  })
+
 });
 
-router.get('/criar', function(req, res, next){
-  if(req.session.authenticated){
+router.get('/criar', function (req, res, next) {
+  if (req.session.authenticated) {
     res.render('criarEvento', {
       title: 'Criar Evento',
-      user: req.session.user});
+      user: req.session.user
+    });
   }
   res.redirect('/users/login');
 });
 
-router.post('/criar', function(req, res, next){
+router.post('/criar', function (req, res, next) {
   var titulo = req.body.titulo;
   var data = req.body.data;
   var tema = req.body.tema;
@@ -42,8 +60,8 @@ router.post('/criar', function(req, res, next){
       title: 'Criar Evento',
       user: req.session.user,
       titulo: titulo,
-      erroTitulo:   erros.find(x => x.param === 'titulo'),
-      erroData:     erros.find(x => x.param === 'data'),
+      erroTitulo: erros.find(x => x.param === 'titulo'),
+      erroData: erros.find(x => x.param === 'data'),
       erroEndereco: erros.find(x => x.param === 'latLng')
     });
   } else {
@@ -56,8 +74,8 @@ router.post('/criar', function(req, res, next){
     });
 
     // Salva no banco
-    Evento.saveEvento(novoEvento, function(err, evento){
-      if(err) throw err;
+    Evento.saveEvento(novoEvento, function (err, evento) {
+      if (err) throw err;
       console.log('novo evento: ' + evento);
     });
 

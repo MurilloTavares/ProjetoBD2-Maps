@@ -14,7 +14,7 @@ function initMap() {
     });
 
     // Marca eventos no mapa
-    var eventos = JSON.parse(document.getElementById('test').value);
+    var eventos = JSON.parse(document.getElementById('eventos').value);
     eventos.forEach((e) => {
 
         // Transforma endereco em latLng

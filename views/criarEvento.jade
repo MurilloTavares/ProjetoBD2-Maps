@@ -45,5 +45,8 @@ include ./includes/header.jade
                 
     #map.col-sm-8
 
+// Hidden input para mandar valores para script.js
+input#eventos(type='hidden', value= JSON.stringify(eventos))
+
 script(src="/javascripts/criarEventoScript.js")
 script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCM81YKuvRlAPbYKcn_DreKTmlx8_dnaUA&callback=initMap&libraries=places', async='', defer='')

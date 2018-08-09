@@ -6,6 +6,7 @@ var Evento = require('../models/evento');
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
+  // Busca eventos
   Evento.find({}).exec((err, result) => {
 
     if (err) {
@@ -20,7 +21,7 @@ router.get('/', function (req, res, next) {
           user: req.session.user,
           eventos: result
         });
-        
+
       } else {
         res.redirect('/users/login');
       }
@@ -31,13 +32,30 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/criar', function (req, res, next) {
-  if (req.session.authenticated) {
-    res.render('criarEvento', {
-      title: 'Criar Evento',
-      user: req.session.user
-    });
-  }
-  res.redirect('/users/login');
+
+  // Busca eventos
+  Evento.find({}).exec((err, result) => {
+
+    if (err) {
+      console.log(err);
+      res.redirect('/users/login');
+    } else {
+
+      if (req.session.authenticated) {
+
+        res.render('criarEvento', {
+          title: 'Criar Evento',
+          user: req.session.user,
+          eventos: result
+        });
+
+      } else {
+        res.redirect('/users/login');
+      }
+    }
+
+  })
+
 });
 
 router.post('/criar', function (req, res, next) {
@@ -56,13 +74,17 @@ router.post('/criar', function (req, res, next) {
   // Caso ha erros
   if (erros) {
     // renderiza 'criarEvento' com erros
-    res.render('criarEvento', {
-      title: 'Criar Evento',
-      user: req.session.user,
-      titulo: titulo,
-      erroTitulo: erros.find(x => x.param === 'titulo'),
-      erroData: erros.find(x => x.param === 'data'),
-      erroEndereco: erros.find(x => x.param === 'latLng')
+     // Busca eventos
+    Evento.find({}).exec((err, result) => {
+      res.render('criarEvento', {
+        title: 'Criar Evento',
+        user: req.session.user,
+        titulo: titulo,
+        eventos: result,
+        erroTitulo: erros.find(x => x.param === 'titulo'),
+        erroData: erros.find(x => x.param === 'data'),
+        erroEndereco: erros.find(x => x.param === 'latLng')
+      });
     });
   } else {
     // Instancia novo Evento

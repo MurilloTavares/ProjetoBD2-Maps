@@ -37,6 +37,23 @@ function initMap() {
         map: map
     });
 
+    // Marca eventos no mapa
+    var eventos = JSON.parse(document.getElementById('eventos').value);
+    eventos.forEach((e) => {
+
+        // Transforma endereco em latLng
+        var endereco = e.endereco.replace("(", "").replace(")", "").replace(",", "");
+        var endereco = endereco.split(" ");
+        var latLng = { lat: parseFloat(endereco[0]), lng: parseFloat(endereco[1]) };
+
+        // Cria marcador para o endereco
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+        });
+        
+    });
+
     map.addListener('click', function (event) {
         setNewMarker(event.latLng);
     });

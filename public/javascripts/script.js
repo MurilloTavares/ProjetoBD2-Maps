@@ -21,12 +21,24 @@ function initMap() {
         var endereco = e.endereco.replace("(", "").replace(")", "").replace(",", "");
         var endereco = endereco.split(" ");
         var latLng = { lat: parseFloat(endereco[0]), lng: parseFloat(endereco[1]) };
+        e.data = e.data.substring(0, 10);
 
         // Cria marcador para o endereco
         var marker = new google.maps.Marker({
             position: latLng,
-            map: map
+            map: map,
         });
+
+        var infowindow = new google.maps.InfoWindow({
+            content: "<b>TITULO: " + e.titulo + "</b><br/>"
+                    + "DATA: " + e.data + "<br/>"
+                    + "TEMA: " + e.tema
+        });
+
+        marker.addListener('click', function () {
+            infowindow.open(map, marker);
+        });
+        
     })
 
     infoWindow = new google.maps.InfoWindow;

@@ -74,7 +74,7 @@ router.post('/criar', function (req, res, next) {
   // Caso ha erros
   if (erros) {
     // renderiza 'criarEvento' com erros
-     // Busca eventos
+    // Busca eventos
     Evento.find({}).exec((err, result) => {
       res.render('criarEvento', {
         title: 'Criar Evento',
@@ -104,6 +104,69 @@ router.post('/criar', function (req, res, next) {
     res.location('/');
     res.redirect('/');
   }
+});
+
+router.get('/buscar', function (req, res, next) {
+  // Busca eventos
+  Evento.find({}).exec((err, result) => {
+
+    if (err) {
+      console.log(err);
+      res.redirect('/users/login');
+    } else {
+
+      if (req.session.authenticated) {
+
+        res.render('buscarEvento', {
+          title: 'Buscar Eventos',
+          user: req.session.user,
+          eventos: result
+        });
+
+      } else {
+        res.redirect('/users/login');
+      }
+    }
+
+  })
+});
+
+router.post('/buscar', function (req, res, next) {
+
+  var inicio = req.body.inicio;
+  var fim = req.body.fim;
+  var tema = req.body.tema;
+
+  var periodo = {};
+  if (inicio) { periodo.$gt = inicio }
+  if (fim) { periodo.$lt = fim }
+
+  var query = {};
+  if (periodo.$gt || periodo.$lt) { query.data = periodo }
+  if (tema != "-") { query.tema = tema }
+
+  Evento.find(query).exec((err, result) => {
+
+    if (err) {
+      console.log(err);
+      res.redirect('/users/login');
+    } else {
+
+      if (req.session.authenticated) {
+
+        res.render('buscarEvento', {
+          title: 'Buscar Eventos',
+          user: req.session.user,
+          eventos: result
+        });
+
+      } else {
+        res.redirect('/users/login');
+      }
+    }
+
+  });
+
 });
 
 module.exports = router;

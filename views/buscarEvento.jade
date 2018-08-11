@@ -1,0 +1,34 @@
+include ./includes/header.jade
+
+.container-fluid.h-100.row
+    .style-form.col-sm-4
+        form(action='/buscar', method='post')
+
+            .form-group
+                label Data Inicial
+                input.form-control(type='date', name='inicio', value = inicio)
+                    
+                label Data Final
+                input.form-control(type='date', name='fim', value = fim)                    
+
+            .form-group
+                label Tema
+                select.custom-select(name="tema")
+                    option(value = '-', selected) -
+                    option(value = 'diversos') Diversos
+                    option(value='automação') Automação
+                    option(value='civil') Construção civil
+                    option(value='humanidades') Humanidades
+                    option(value='informatica') Informática
+                    option(value='linguagens') Linguagens
+
+            .form-group
+                button.btn.btn-primary.btn-block(type='submit') Buscar
+                
+    #map.col-sm-8
+
+// Hidden input para mandar valores para buscarEventosscript.js
+input#eventos(type='hidden', value= JSON.stringify(eventos))
+
+script(src="/javascripts/buscarEventoScript.js")
+script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCM81YKuvRlAPbYKcn_DreKTmlx8_dnaUA&callback=initMap&libraries=places', async='', defer='')

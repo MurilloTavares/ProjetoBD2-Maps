@@ -157,7 +157,10 @@ router.post('/buscar', function (req, res, next) {
         res.render('buscarEvento', {
           title: 'Buscar Eventos',
           user: req.session.user,
-          eventos: result
+          eventos: result,
+          inicio: inicio,
+          fim: fim,
+          tema: tema
         });
 
       } else {
@@ -168,5 +171,11 @@ router.post('/buscar', function (req, res, next) {
   });
 
 });
+
+router.get('/logout', function(req, res, next){
+  req.session.user = undefined;
+  req.session.authenticated = false;
+  res.redirect('/users/login');
+})
 
 module.exports = router;
